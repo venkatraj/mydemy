@@ -21,6 +21,22 @@ schema.extendType({
     t.crud.user();
     t.crud.users();
 
+    t.field('profile', {
+      type: 'User',
+      nullable: false,
+      resolve(root, args, ctx) {
+        const userId = getUserId(ctx.token);
+        if (!userId) {
+          throw new Error('Please login!');
+        }
+        return ctx.db.user.findOne({
+          where: {
+            id: userId,
+          },
+        });
+      },
+    });
+
     t.list.field('instructor', {
       type: 'User',
       nullable: false,
