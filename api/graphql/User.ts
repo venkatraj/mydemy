@@ -20,6 +20,38 @@ schema.extendType({
   definition(t) {
     t.crud.user();
     t.crud.users();
+
+    t.list.field('coursesByInstructor', {
+      type: 'User',
+      nullable: false,
+      args: {
+        id: schema.intArg({ required: true }),
+      },
+      resolve(root, args, ctx) {
+        return ctx.db.user.findMany({
+          where: {
+            id: parseInt(args.id),
+            role: 'Instructor',
+          },
+        });
+      },
+    });
+
+    t.list.field('coursesByStudent', {
+      type: 'User',
+      nullable: false,
+      args: {
+        id: schema.intArg({ required: true }),
+      },
+      resolve(root, args, ctx) {
+        return ctx.db.user.findMany({
+          where: {
+            id: parseInt(args.id),
+            role: 'Student',
+          },
+        });
+      },
+    });
   },
 });
 
