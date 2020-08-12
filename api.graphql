@@ -143,6 +143,7 @@ type Mutation {
   createOneCourse(data: CourseCreateInput!): Course!
   createOneUser(data: UserCreateInput!): User!
   deleteOneUser(where: UserWhereUniqueInput!): User
+  enroll(id: Int!): Course
   login(email: String!, password: String!): AuthPayload
   signup(data: UserCreateInput): AuthPayload
   updateOneUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
